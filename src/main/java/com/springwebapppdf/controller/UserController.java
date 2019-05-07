@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,6 +49,7 @@ public class UserController {
     public String editUser(@PathVariable("id")  int id, Model model){
         model.addAttribute("user", userRepository.getOne(id));
         model.addAttribute("users",userRepository.findAll());
+        model.addAttribute("message",userRepository.getOne(id).getName() + " adlı user düzenlenmek için seçildi");
         userRepository.deleteById(id);
         return "home.html";
     }
