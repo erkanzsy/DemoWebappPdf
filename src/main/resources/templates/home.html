@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Anasayfa</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .form-control{
+            width: 100%;
+            margin-left: 12px;
+        }
+        label{
+            margin-left: 12px;
+        }
+        input{
+            margin-left: 70%;
+        }
+        .regist{
+            width: 50%;
+        }
+        h2{
+            text-align: center;
+        }
+        div.col{
+            margin-top: 32px;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="regist">
+                    <h2>Kayit</h2>
+                    <br>
+
+                    <form th:action="@{/adduser}" th:object="${user}" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Adınız</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Soyadınız</label>
+                            <input type="text" th:field="*{surname}" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Enter your surname">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Rol</label>
+                            <input type="text" th:field="*{role}" class="form-control" id="exampleInputEmail3" aria-describedby="emailHelp" placeholder="Enter your role">
+                        </div>
+                        <input type="submit" value="Kaydet" class="btn btn-primary"/>
+                    </form>
+                </div>
+
+                <th th:text="${message}"/><br>
+            </div>
+            <div class="col">
+                <a href="/download.pdf">PDF al</a>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Kullanıcı Adı</th>
+                        <th scope="col">Kullanıcı Soyadı</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Düzenle</th>
+                        <th scope="col">Sil</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.getName()}"></td>
+                            <td th:text="${user.getSurname()}"></td>
+                            <td th:text="${user.getRole()}"></td>
+                            <td><a th:href="${'/edit/' + user.getId()}">Edit</a></td>
+                            <td><a th:href="${'/delete/' + user.getId()}">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
